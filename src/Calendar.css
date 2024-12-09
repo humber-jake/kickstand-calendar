@@ -1,0 +1,23 @@
+.Calendar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  height: 100%;
+}
+.day {
+  border: 1px solid #efefef;
+}
+.today {
+  background: hsl(207, 100%, 91%);
+}
+.extraneous {
+  color: #aaa;
+  background: #f4f4f4;
+}
+@media (max-width: 1024px) {
+  .Calendar {
+    grid-template-columns: 1fr;
+  }
+  .extraneous {
+    display: none;
+  }
+}
