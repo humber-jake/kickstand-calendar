@@ -4,14 +4,23 @@
   height: 100%;
 }
 .day {
-  border: 1px solid #efefef;
+  color: #595959;
+  border: 1px solid #d9d9d9;
+  padding: 0.25rem;
+}
+.OttP {
+  background: #fcf1c8;
+}
+.WTQ {
+  background: #dfcee4;
 }
 .today {
-  background: hsl(207, 100%, 91%);
+  background: #d1eaff;
 }
 .extraneous {
-  color: #aaa;
-  background: #f4f4f4;
+  color: #ccc;
+  background: #fff;
+  border: 1px solid #f4f4f4;
 }
 @media (max-width: 1024px) {
   .Calendar {
