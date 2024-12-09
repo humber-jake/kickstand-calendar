@@ -55,9 +55,15 @@ function App() {
     for (let i = 1; i <= daysInMonth; i++) {
       monthArr.push(getDayArr(year, month, i));
     }
-
+    // Edge case for sunday February 1sts
+    if (monthArr.length == 28 && monthArr[0].weekday == "Sunday") {
+      rows = 4;
+    }
     // Months starting in Fri or Sat require 6 rows to render all days on screen
-    if (monthArr[0].weekday == "Friday" || monthArr[0].weekday == "Saturday") {
+    if (
+      (monthArr.length >= 30 && monthArr[0].weekday == "Saturday") ||
+      (monthArr.length == 31 && monthArr[0].weekday == "Friday")
+    ) {
       rows = 6;
     }
     return monthArr;
