@@ -2,20 +2,33 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   height: 100%;
+  * {
+    transition: 200ms;
+  }
 }
+
+.calendarContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.dayHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  text-transform: uppercase;
+}
+
 .day {
   color: #595959;
   border: 1px solid #d9d9d9;
   padding: 0.25rem;
 }
-.OttP {
-  background: #fcf1c8;
-}
-.WTQ {
-  background: #dfcee4;
-}
 .today {
   background: #d1eaff;
+}
+.day:hover {
+  /* background: rgb(239, 253, 255); */
 }
 .extraneous {
   color: #ccc;

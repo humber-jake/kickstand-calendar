@@ -1,0 +1,40 @@
+p {
+  margin: 0;
+}
+.MiniCalendarContainer {
+  padding: 1rem;
+  margin: 0 auto;
+  width: fit-content;
+  height: 250px;
+}
+.MiniCalendar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.miniDay {
+  padding: 0.25rem;
+  height: 25px;
+  width: 25px;
+  border-radius: 100px;
+  text-align: center;
+  margin: 0.25rem;
+  background: #eee;
+}
+.miniYear {
+  font-size: 2rem;
+}
+.miniMonth {
+  font-size: 3rem;
+  text-align: center;
+}
+.miniDay:hover {
+  background: #ccc;
+}
+.miniToday {
+  background: #d1eaff;
+}
+@media (max-width: 1024px) {
+  .MiniCalendar .extraneous {
+    display: block;
+  }
+}

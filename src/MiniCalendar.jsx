@@ -1,7 +1,7 @@
 import React from "react";
-import "./Calendar.css";
+import "./MiniCalendar.css";
 
-const Calendar = (props) => {
+const MiniCalendar = (props) => {
   let { currentMonth } = props;
 
   let today = new Date()
@@ -17,11 +17,9 @@ const Calendar = (props) => {
     currentMonth[Math.floor(currentMonth.length / 2)]
   ).join(" ");
 
-  // TODO: write function to apply shift classes (MWFS = OttP, Thurs = WTQ)
-
-  let calendar = currentMonth.map((day, i) => {
+  let miniCalendar = currentMonth.map((day, i) => {
     let { weekday, month, date, year } = day;
-    let classes = ["day"];
+    let classes = ["miniDay"];
 
     switch (weekday) {
       case "Monday":
@@ -44,22 +42,22 @@ const Calendar = (props) => {
     if (!midMonth.includes(month || date || year)) {
       classes.push("extraneous");
     }
-
     if (`${month} ${date} ${year}` == today) {
-      classes.push("today");
+      classes.push("miniToday");
     }
 
     return (
-      <div className={classes.join(" ")} key={i}>
-        <div className="date"> {date}</div>
-        <div className="weekday">{weekday}</div>
-        <div className="month"> {month}</div>
-        <div className="year"> {year}</div>
+      <div key={i} className={classes.join(" ")}>
+        {date}
       </div>
     );
   });
 
-  return <div className="Calendar">{calendar}</div>;
+  return (
+    <div className="MiniCalendarContainer">
+      <div className="MiniCalendar">{miniCalendar}</div>
+    </div>
+  );
 };
 
-export default Calendar;
+export default MiniCalendar;

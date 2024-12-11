@@ -1,24 +1,78 @@
 #root {
   display: grid;
-  grid-template-columns: 400px 5fr;
+  grid-template-columns: 1fr 5fr;
   width: 100%;
+  height: 100%;
 }
+
 .sidebar {
-  height: 100vh;
+  padding: 4rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: white;
   border-right: 1px solid #9e9e9e;
   z-index: 10;
   box-shadow: 2px 0px 5px #00000025;
 }
-.calendarContainer {
+.actions {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  gap: 20px;
+  button {
+    outline: none;
+    width: 250px;
+    border: 1px solid rgb(236, 236, 236);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.122);
+    transition: 100ms;
+  }
+  button:hover {
+    opacity: 70%;
+    transition: 100ms;
+  }
 }
-.dayHeaders {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  text-transform: uppercase;
+.ShiftModal {
+  padding-left: calc(100% / 6);
+  width: calc((100% / 6) * 5);
+  position: fixed;
+  height: 100%;
+  background: #00000087;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Modal {
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 30px;
+  width: 800px;
+  height: 85%;
+  background: white;
+}
+
+.hidden {
+  display: none;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 80%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (max-width: 1920px) {
+  #root {
+    grid-template-columns: 1fr 4fr;
+  }
+  .ShiftModal {
+    padding-left: calc(100% / 5);
+    width: calc((100% / 5) * 4);
+  }
 }
 @media (max-width: 1024px) {
   .dayHeaders {

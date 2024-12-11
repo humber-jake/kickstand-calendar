@@ -3,34 +3,22 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Calendar from "./Calendar";
+import MiniCalendar from "./MiniCalendar";
+import ShiftModal from "./ShiftModal";
+import { daysOfWeek } from "./constants";
+import Sidebar from "./Sidebar";
 
 function App() {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
   const dt = new Date();
   const day = dt.getDate();
   const year = dt.getFullYear();
   const [month, setMonth] = useState(dt.getMonth());
+  const [shiftModalOpen, setShiftModalOpen] = useState(false);
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   let rows = 5;
 
-  const backmonth = () => {
-    setMonth(month - 1);
-  };
-
-  const forwardmonth = () => {
-    setMonth(month + 1);
-  };
-
-  const getDayArr = (year, month, day) => {
+  // create readable obj for any given Date() object
+  const getDayObj = (year, month, day) => {
     let result = new Date(year, month, day)
       .toLocaleDateString("en-us", {
         weekday: "long",
@@ -50,10 +38,18 @@ function App() {
       year: result[3],
     };
   };
+
+  const today = getDayObj(year, dt.getMonth(), day);
+  const [selectedDay, setSelectedDay] = useState(today);
+
+  console.log("Selected day: ");
+  console.log(Object.values(selectedDay).join(" "));
+
+  // create array to populate current calendar window
   const createMonthArr = () => {
     let monthArr = [];
     for (let i = 1; i <= daysInMonth; i++) {
-      monthArr.push(getDayArr(year, month, i));
+      monthArr.push(getDayObj(year, month, i));
     }
     // Edge case for sunday February 1sts
     if (monthArr.length == 28 && monthArr[0].weekday == "Sunday") {
@@ -66,46 +62,71 @@ function App() {
     ) {
       rows = 6;
     }
+
+    // padStart days
+    let startDays = daysOfWeek.indexOf(monthArr[0].weekday);
+    if (startDays !== 0) {
+      for (let i = startDays; i > 0; i--) {
+        monthArr.unshift(getDayObj(year, month, i - startDays));
+      }
+    }
+
+    // padEnd days
+    let endDays = rows * 7 - monthArr.length;
+    if (endDays !== 0) {
+      for (let i = 0; i < endDays; i++) {
+        monthArr.push(getDayObj(year, month + 1, i + 1));
+      }
+    }
+
     return monthArr;
   };
-  const padStart = (monthArr) => {
-    let result = monthArr;
-    let days = daysOfWeek.indexOf(monthArr[0].weekday);
-    if (days == 0) return result;
 
-    for (let i = days; i > 0; i--) {
-      result.unshift(getDayArr(year, month, i - days));
-    }
+  let currentMonth = createMonthArr();
 
-    return result;
-  };
-  const padEnd = (monthArr) => {
-    let result = monthArr;
-    let days = rows * 7 - monthArr.length;
-    if (days == 0) return result;
-    for (let i = 0; i < days; i++) {
-      result.push(getDayArr(year, month + 1, i + 1));
-    }
-    return result;
+  // get middle value of currentMonth arr for displaying Month name
+  const midMonth = currentMonth[Math.floor(currentMonth.length / 2)];
+
+  // Click Handlers
+  const backMonth = () => {
+    setMonth(month - 1);
   };
 
-  let currentMonth = padEnd(padStart(createMonthArr()));
+  const forwardMonth = () => {
+    setMonth(month + 1);
+  };
+
+  function openShiftModal() {
+    setShiftModalOpen(!shiftModalOpen);
+  }
+  function hideShiftModal() {
+    setShiftModalOpen(false);
+  }
 
   return (
     <>
-      <div className="sidebar">
-        Sidebar
-        <br />
-        <button onClick={backmonth}>{`<--`}</button>
-        <button onClick={forwardmonth}>{`-->`}</button>
-      </div>
+      <Sidebar
+        midMonth={midMonth}
+        currentMonth={currentMonth}
+        backMonth={backMonth}
+        forwardMonth={forwardMonth}
+        openShiftModal={openShiftModal}
+      />
+      <ShiftModal
+        hideShiftModal={hideShiftModal}
+        openShiftModal={openShiftModal}
+        shiftModalOpen={shiftModalOpen}
+        midMonth={midMonth}
+        backMonth={backMonth}
+        forwardMonth={forwardMonth}
+        currentMonth={currentMonth}
+        today={today}
+      />
       <div className="calendarContainer">
         <div className="dayHeaders">
           {daysOfWeek.map((day, i) => (
             <div className="column" key={i}>
-              {day[0]}
-              {day[1]}
-              {day[2]}
+              {day.slice(0, 3)}
             </div>
           ))}
         </div>
