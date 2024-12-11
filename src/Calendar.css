@@ -27,6 +27,11 @@
 .today {
   background: #d1eaff;
 }
+
+.selectedDay {
+  background: rgb(255, 195, 122);
+}
+
 .day:hover {
   /* background: rgb(239, 253, 255); */
 }

@@ -10,6 +10,9 @@ p {
 .MiniCalendar {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  .selectedDay {
+    background: orange;
+  }
 }
 .miniDay {
   padding: 0.25rem;
@@ -28,7 +31,7 @@ p {
   text-align: center;
 }
 .miniDay:hover {
-  background: #ccc;
+  opacity: 50%;
 }
 .miniToday {
   background: #d1eaff;

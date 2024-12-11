@@ -2,7 +2,7 @@ import React from "react";
 import "./Calendar.css";
 
 const Calendar = (props) => {
-  let { currentMonth } = props;
+  let { currentMonth, selectDay, selectedDay } = props;
 
   let today = new Date()
     .toLocaleDateString("en-us", {
@@ -17,11 +17,23 @@ const Calendar = (props) => {
     currentMonth[Math.floor(currentMonth.length / 2)]
   ).join(" ");
 
-  // TODO: write function to apply shift classes (MWFS = OttP, Thurs = WTQ)
+  function updateSelectedDay() {
+    selectDay(day);
+  }
 
   let calendar = currentMonth.map((day, i) => {
     let { weekday, month, date, year } = day;
-    let classes = ["day"];
+    let classes = [];
+
+    classes.push(
+      Object.values(day).join(" ") === Object.values(selectedDay).join(" ")
+        ? "day selectedDay"
+        : "day"
+    );
+
+    function updateSelectedDay() {
+      selectDay(day);
+    }
 
     switch (weekday) {
       case "Monday":
@@ -50,7 +62,7 @@ const Calendar = (props) => {
     }
 
     return (
-      <div className={classes.join(" ")} key={i}>
+      <div className={classes.join(" ")} key={i} onClick={updateSelectedDay}>
         <div className="date"> {date}</div>
         <div className="weekday">{weekday}</div>
         <div className="month"> {month}</div>

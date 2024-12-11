@@ -13,6 +13,8 @@ const ShiftModal = (props) => {
     today,
     backMonth,
     forwardMonth,
+    selectDay,
+    selectedDay,
   } = props;
 
   function addShift(e) {
@@ -53,7 +55,11 @@ const ShiftModal = (props) => {
           <button onClick={backMonth}>{`<--`}</button>
           <button onClick={forwardMonth}>{`-->`}</button>
         </div>
-        <MiniCalendar currentMonth={currentMonth}></MiniCalendar>
+        <MiniCalendar
+          currentMonth={currentMonth}
+          selectDay={selectDay}
+          selectedDay={selectedDay}
+        ></MiniCalendar>
         <form id="addShiftForm" className="addShiftForm" onSubmit={addShift}>
           <label htmlFor="name">Your name:</label>
           <input id="name" name="name" type="text" />

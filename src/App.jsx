@@ -42,9 +42,6 @@ function App() {
   const today = getDayObj(year, dt.getMonth(), day);
   const [selectedDay, setSelectedDay] = useState(today);
 
-  console.log("Selected day: ");
-  console.log(Object.values(selectedDay).join(" "));
-
   // create array to populate current calendar window
   const createMonthArr = () => {
     let monthArr = [];
@@ -88,6 +85,11 @@ function App() {
   const midMonth = currentMonth[Math.floor(currentMonth.length / 2)];
 
   // Click Handlers
+
+  function selectDay(day) {
+    setSelectedDay(day);
+  }
+
   const backMonth = () => {
     setMonth(month - 1);
   };
@@ -111,6 +113,8 @@ function App() {
         backMonth={backMonth}
         forwardMonth={forwardMonth}
         openShiftModal={openShiftModal}
+        selectDay={selectDay}
+        selectedDay={selectedDay}
       />
       <ShiftModal
         hideShiftModal={hideShiftModal}
@@ -121,6 +125,8 @@ function App() {
         forwardMonth={forwardMonth}
         currentMonth={currentMonth}
         today={today}
+        selectDay={selectDay}
+        selectedDay={selectedDay}
       />
       <div className="calendarContainer">
         <div className="dayHeaders">
@@ -130,7 +136,11 @@ function App() {
             </div>
           ))}
         </div>
-        <Calendar currentMonth={currentMonth} />
+        <Calendar
+          currentMonth={currentMonth}
+          selectDay={selectDay}
+          selectedDay={selectedDay}
+        />
       </div>
     </>
   );

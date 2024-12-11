@@ -2,7 +2,7 @@ import React from "react";
 import "./MiniCalendar.css";
 
 const MiniCalendar = (props) => {
-  let { currentMonth } = props;
+  let { currentMonth, selectDay, selectedDay } = props;
 
   let today = new Date()
     .toLocaleDateString("en-us", {
@@ -17,9 +17,23 @@ const MiniCalendar = (props) => {
     currentMonth[Math.floor(currentMonth.length / 2)]
   ).join(" ");
 
+  function updateSelectedDay() {
+    selectDay(day);
+  }
+
   let miniCalendar = currentMonth.map((day, i) => {
     let { weekday, month, date, year } = day;
-    let classes = ["miniDay"];
+    let classes = [];
+
+    classes.push(
+      Object.values(day).join(" ") === Object.values(selectedDay).join(" ")
+        ? "miniDay selectedDay"
+        : "miniDay"
+    );
+
+    function updateSelectedDay() {
+      selectDay(day);
+    }
 
     switch (weekday) {
       case "Monday":
@@ -47,7 +61,7 @@ const MiniCalendar = (props) => {
     }
 
     return (
-      <div key={i} className={classes.join(" ")}>
+      <div key={i} className={classes.join(" ")} onClick={updateSelectedDay}>
         {date}
       </div>
     );
