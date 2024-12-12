@@ -2,11 +2,11 @@ p {
   margin: 0;
 }
 .MiniCalendarContainer {
-  padding: 1rem;
+  padding: 0 1rem;
   margin: 0 auto;
   width: fit-content;
   height: 300px;
-  .dayHeaders {
+  .columnHeaders {
     height: auto;
   }
 }

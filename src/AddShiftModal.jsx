@@ -1,10 +1,10 @@
 import React from "react";
 import MiniCalendar from "./MiniCalendar";
-import "./ShiftModal.css";
+import "./AddShiftModal.css";
 import { roles } from "./constants";
 import supabase from "../utils/supabase";
 
-const ShiftModal = (props) => {
+const AddShiftModal = (props) => {
   const {
     hideShiftModal,
     openShiftModal,
@@ -16,6 +16,10 @@ const ShiftModal = (props) => {
     toToday,
     selectDay,
     selectedDay,
+    prev,
+    next,
+    shifts,
+    setShifts,
   } = props;
 
   let today = new Date();
@@ -34,6 +38,15 @@ const ShiftModal = (props) => {
 
     alert("shift added.");
     hideShiftModal();
+
+    // render added shift to the page without re-calling database
+    let result = shifts;
+    if (!result[data.date]) {
+      result[data.date] = [data];
+    } else {
+      result[data.date].push(data);
+    }
+    setShifts(result);
   }
 
   function cancelAddShift(e) {
@@ -48,7 +61,7 @@ const ShiftModal = (props) => {
   ));
 
   return (
-    <div className={shiftModalOpen ? "ShiftModal" : "ShiftModal hidden"}>
+    <div className={shiftModalOpen ? "AddShiftModal" : "AddShiftModal hidden"}>
       <div className="Modal">
         <button
           type="button"
@@ -63,9 +76,15 @@ const ShiftModal = (props) => {
           {midMonth.toLocaleDateString("en-us", { month: "long" })}
         </p>
         <div className="buttons">
-          <button onClick={backMonth}>{`<--`}</button>
-          <button onClick={toToday}>Today</button>
-          <button onClick={forwardMonth}>{`-->`}</button>
+          <button className="prev" onClick={backMonth}>
+            <div>{prev}</div>
+          </button>
+          <button className="todayButton" onClick={toToday}>
+            Today
+          </button>
+          <button className="next" onClick={forwardMonth}>
+            <div>{next}</div>
+          </button>
         </div>
         <MiniCalendar
           currentMonth={currentMonth}
@@ -130,4 +149,4 @@ const ShiftModal = (props) => {
   );
 };
 
-export default ShiftModal;
+export default AddShiftModal;

@@ -11,6 +11,8 @@ const Sidebar = (props) => {
     openShiftModal,
     selectDay,
     selectedDay,
+    prev,
+    next,
   } = props;
   return (
     <div className="sidebar">
@@ -28,9 +30,15 @@ const Sidebar = (props) => {
         </p>
       </div>
       <div className="buttons">
-        <button onClick={backMonth}>{`<--`}</button>
-        <button onClick={toToday}>Today</button>
-        <button onClick={forwardMonth}>{`-->`}</button>
+        <button className="prev" onClick={backMonth}>
+          <div>{prev}</div>
+        </button>
+        <button className="todayButton" onClick={toToday}>
+          Today
+        </button>
+        <button className="next" onClick={forwardMonth}>
+          <div>{next}</div>
+        </button>
       </div>
       <MiniCalendar
         currentMonth={currentMonth}

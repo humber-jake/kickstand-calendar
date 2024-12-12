@@ -1,9 +1,18 @@
 import React from "react";
 import "./Calendar.css";
 import { daysOfWeek } from "./constants";
+import Shift from "./Shift";
 
 const Calendar = (props) => {
-  let { currentMonth, selectDay, selectedDay, midMonth, shifts } = props;
+  let {
+    currentMonth,
+    selectDay,
+    selectedDay,
+    midMonth,
+    shifts,
+    openShiftModal,
+    openEditModal,
+  } = props;
 
   let today = new Date();
 
@@ -58,16 +67,16 @@ const Calendar = (props) => {
 
     return (
       <div className={classes.join(" ")} key={i} onClick={updateSelectedDay}>
-        <div className="date"> {date}</div>
+        <div className="dayHeader">
+          <div className="date"> {date}</div>
+          <div className="addShift" onClick={openShiftModal}>
+            +
+          </div>
+        </div>
         <div className="shifts">
           {shifts[day.toISOString().substr(0, 10)] &&
             shifts[day.toISOString().substr(0, 10)].map((shift, i) => (
-              <span
-                key={i}
-                className={`volunteerName ${shift.role.split(" ").join("")}`}
-              >
-                {shift.name}
-              </span>
+              <Shift openEditModal={openEditModal} key={i} shift={shift} />
             ))}
         </div>
 

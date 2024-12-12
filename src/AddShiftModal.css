@@ -1,5 +1,5 @@
-.ShiftModal {
-  z-index: 1;
+.AddShiftModal {
+  z-index: 5;
 }
 .addShiftForm {
   display: grid;

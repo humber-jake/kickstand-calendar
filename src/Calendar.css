@@ -11,12 +11,16 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  min-height: 0px;
+  overflow: hidden;
 }
 
 .day {
   color: #595959;
   border: 1px solid #d9d9d9;
   padding: 0.25rem;
+  min-height: 0px;
+  overflow: hidden;
 }
 .today {
   background: #d1eaff;
@@ -30,15 +34,55 @@
   opacity: 50%;
   border: 1px solid #f4f4f4;
 }
+.dayHeader {
+  font-family: "Comfortaa", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  .addShift {
+    z-index: 3;
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    display: none;
+    color: #4eba70;
+    background: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 100%;
+    border: 1px solid rgb(233, 233, 233);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.219);
+  }
+}
+.day:hover {
+  .addShift {
+    display: block;
+  }
+}
 .shifts {
   display: flex;
+  align-content: flex-start;
   flex-wrap: wrap;
   gap: 3px;
+  position: relative;
+  height: 100%;
 }
+/* .shifts::after {
+  content: linear-gradient(rgba(0, 0, 0, 0) 30%, white 70%);
+  position: absolute;
+  height: 40%;
+  width: 110%;
+  left: -5%;
+  bottom: 0;
+} */
 .volunteerName {
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
   padding: 0.25rem 0.5rem;
   border-radius: 20px;
+  height: fit-content;
 }
 .Keyholder {
   background: #f0c518;
@@ -71,5 +115,13 @@
   }
   .extraneous {
     display: none;
+  }
+  .calendarContainer {
+    overflow: visible;
+    min-height: 100px;
+  }
+  .day {
+    overflow: hidden;
+    min-height: 100px;
   }
 }

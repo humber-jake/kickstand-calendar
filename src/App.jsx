@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Calendar from "./Calendar";
 import MiniCalendar from "./MiniCalendar";
-import ShiftModal from "./ShiftModal";
+import AddShiftModal from "./AddShiftModal";
 import { daysOfWeek } from "./constants";
 import Sidebar from "./Sidebar";
 import supabase from "../utils/supabase";
+import EditModal from "./EditModal";
 
 function App() {
   const [shifts, setShifts] = useState([]);
@@ -36,6 +37,8 @@ function App() {
   const year = dt.getFullYear();
   const [month, setMonth] = useState(dt.getMonth());
   const [shiftModalOpen, setShiftModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editShiftTarget, setEditShiftTarget] = useState({});
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   let rows = 5;
 
@@ -108,6 +111,21 @@ function App() {
   // get middle value of currentMonth arr for displaying Month name
   const midMonth = currentMonth[Math.floor(currentMonth.length / 2)];
 
+  let prevMonthString = new Date(
+    year,
+    midMonth.getMonth() - 1,
+    15
+  ).toLocaleDateString("en-us", {
+    month: "short",
+  });
+  let nextMonthString = new Date(
+    year,
+    midMonth.getMonth() + 1,
+    15
+  ).toLocaleDateString("en-us", {
+    month: "short",
+  });
+
   // Click Handlers
 
   function selectDay(day) {
@@ -133,6 +151,13 @@ function App() {
   function hideShiftModal() {
     setShiftModalOpen(false);
   }
+  function openEditModal(shift) {
+    setEditModalOpen(!editModalOpen);
+    setEditShiftTarget(shift);
+  }
+  function hideEditModal() {
+    setEditModalOpen(false);
+  }
 
   return (
     <>
@@ -145,8 +170,12 @@ function App() {
         openShiftModal={openShiftModal}
         selectDay={selectDay}
         selectedDay={selectedDay}
+        prev={prevMonthString}
+        next={nextMonthString}
       />
-      <ShiftModal
+      <AddShiftModal
+        shifts={shifts}
+        setShifts={setShifts}
         hideShiftModal={hideShiftModal}
         openShiftModal={openShiftModal}
         shiftModalOpen={shiftModalOpen}
@@ -157,9 +186,27 @@ function App() {
         currentMonth={currentMonth}
         selectDay={selectDay}
         selectedDay={selectedDay}
+        prev={prevMonthString}
+        next={nextMonthString}
+      />
+      <EditModal
+        shifts={shifts}
+        setShifts={setShifts}
+        hideEditModal={hideEditModal}
+        editModalOpen={editModalOpen}
+        midMonth={midMonth}
+        backMonth={backMonth}
+        forwardMonth={forwardMonth}
+        toToday={toToday}
+        currentMonth={currentMonth}
+        selectDay={selectDay}
+        selectedDay={selectedDay}
+        shift={editShiftTarget}
+        prev={prevMonthString}
+        next={nextMonthString}
       />
       <div className="calendarContainer">
-        <div className="dayHeaders">
+        <div className="columnHeaders">
           {daysOfWeek.map((day, i) => (
             <div className="column" key={i}>
               {day.slice(0, 3)}
@@ -167,6 +214,8 @@ function App() {
           ))}
         </div>
         <Calendar
+          openShiftModal={openShiftModal}
+          openEditModal={openEditModal}
           midMonth={midMonth}
           currentMonth={currentMonth}
           selectDay={selectDay}

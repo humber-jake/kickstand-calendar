@@ -63,7 +63,7 @@ const MiniCalendar = (props) => {
 
   return (
     <div className="MiniCalendarContainer">
-      <div className="dayHeaders">
+      <div className="columnHeaders">
         {daysOfWeek.map((day, i) => (
           <div className="column" key={i}>
             {day[0]}
