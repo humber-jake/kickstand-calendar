@@ -1,32 +1,24 @@
 import React from "react";
 import "./MiniCalendar.css";
+import { daysOfWeek } from "./constants";
 
 const MiniCalendar = (props) => {
   let { currentMonth, selectDay, selectedDay } = props;
 
-  let today = new Date()
-    .toLocaleDateString("en-us", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
-    .split(",")
-    .join("");
+  let today = new Date();
 
-  const midMonth = Object.values(
-    currentMonth[Math.floor(currentMonth.length / 2)]
-  ).join(" ");
+  const midMonth = currentMonth[Math.floor(currentMonth.length / 2)];
 
   function updateSelectedDay() {
     selectDay(day);
   }
 
   let miniCalendar = currentMonth.map((day, i) => {
-    let { weekday, month, date, year } = day;
     let classes = [];
 
     classes.push(
-      Object.values(day).join(" ") === Object.values(selectedDay).join(" ")
+      day.toLocaleDateString("en-us") ===
+        selectedDay.toLocaleDateString("en-us")
         ? "miniDay selectedDay"
         : "miniDay"
     );
@@ -35,7 +27,7 @@ const MiniCalendar = (props) => {
       selectDay(day);
     }
 
-    switch (weekday) {
+    switch (daysOfWeek[day.getDay()]) {
       case "Monday":
         classes.push("OttP");
         break;
@@ -53,12 +45,14 @@ const MiniCalendar = (props) => {
         break;
     }
 
-    if (!midMonth.includes(month || date || year)) {
+    if (midMonth.getMonth() !== day.getMonth()) {
       classes.push("extraneous");
     }
-    if (`${month} ${date} ${year}` == today) {
-      classes.push("miniToday");
+
+    if (day == today) {
+      classes.push("today");
     }
+    let date = day.toLocaleDateString("en-us", { day: "numeric" });
 
     return (
       <div key={i} className={classes.join(" ")} onClick={updateSelectedDay}>

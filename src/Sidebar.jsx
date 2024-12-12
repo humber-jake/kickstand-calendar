@@ -15,8 +15,16 @@ const Sidebar = (props) => {
     <div className="sidebar">
       Sidebar
       <div>
-        <p className="miniYear">{midMonth.year}</p>
-        <p className="miniMonth">{midMonth.month}</p>
+        <p className="miniYear">
+          {midMonth.toLocaleDateString("en-us", {
+            year: "numeric",
+          })}
+        </p>
+        <p className="miniMonth">
+          {midMonth.toLocaleDateString("en-us", {
+            month: "long",
+          })}
+        </p>
       </div>
       <div className="buttons">
         <button onClick={backMonth}>{`<--`}</button>

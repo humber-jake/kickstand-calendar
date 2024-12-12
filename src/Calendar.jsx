@@ -1,32 +1,22 @@
 import React from "react";
 import "./Calendar.css";
+import { daysOfWeek } from "./constants";
 
 const Calendar = (props) => {
-  let { currentMonth, selectDay, selectedDay } = props;
+  let { currentMonth, selectDay, selectedDay, midMonth, shifts } = props;
 
-  let today = new Date()
-    .toLocaleDateString("en-us", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
-    .split(",")
-    .join("");
-
-  const midMonth = Object.values(
-    currentMonth[Math.floor(currentMonth.length / 2)]
-  ).join(" ");
+  let today = new Date();
 
   function updateSelectedDay() {
     selectDay(day);
   }
 
   let calendar = currentMonth.map((day, i) => {
-    let { weekday, month, date, year } = day;
     let classes = [];
 
     classes.push(
-      Object.values(day).join(" ") === Object.values(selectedDay).join(" ")
+      day.toLocaleDateString("en-us") ===
+        selectedDay.toLocaleDateString("en-us")
         ? "day selectedDay"
         : "day"
     );
@@ -35,7 +25,7 @@ const Calendar = (props) => {
       selectDay(day);
     }
 
-    switch (weekday) {
+    switch (daysOfWeek[day.getDay()]) {
       case "Monday":
         classes.push("OttP");
         break;
@@ -53,20 +43,37 @@ const Calendar = (props) => {
         break;
     }
 
-    if (!midMonth.includes(month || date || year)) {
+    if (midMonth.getMonth() !== day.getMonth()) {
       classes.push("extraneous");
     }
 
-    if (`${month} ${date} ${year}` == today) {
+    if (day == today) {
       classes.push("today");
     }
+
+    let weekday = day.toLocaleDateString("en-us", { weekday: "long" });
+    let year = day.toLocaleDateString("en-us", { year: "numeric" });
+    let month = day.toLocaleDateString("en-us", { month: "long" });
+    let date = day.toLocaleDateString("en-us", { day: "numeric" });
 
     return (
       <div className={classes.join(" ")} key={i} onClick={updateSelectedDay}>
         <div className="date"> {date}</div>
-        <div className="weekday">{weekday}</div>
-        <div className="month"> {month}</div>
-        <div className="year"> {year}</div>
+        <div className="shifts">
+          {shifts[day.toISOString().substr(0, 10)] &&
+            shifts[day.toISOString().substr(0, 10)].map((shift, i) => (
+              <span
+                key={i}
+                className={`volunteerName ${shift.role.split(" ").join("")}`}
+              >
+                {shift.name}
+              </span>
+            ))}
+        </div>
+
+        {/* <div className="weekday">{weekday}</div> */}
+        {/* <div className="month"> {month}</div> */}
+        {/* <div className="year"> {year}</div> */}
       </div>
     );
   });

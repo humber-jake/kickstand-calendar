@@ -1,10 +1,10 @@
 .Calendar {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
   height: 100%;
-  * {
-    transition: 200ms;
-  }
+  width: 100%;
 }
 
 .calendarContainer {
@@ -31,15 +31,46 @@
 .selectedDay {
   background: rgb(255, 195, 122);
 }
-
-.day:hover {
-  /* background: rgb(239, 253, 255); */
-}
 .extraneous {
-  color: #ccc;
-  background: #fff;
+  color: #a6a6a6;
+  opacity: 50%;
   border: 1px solid #f4f4f4;
 }
+.shifts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+.volunteerName {
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0.25rem 0.5rem;
+  border-radius: 20px;
+}
+.Keyholder {
+  background: #f0c518;
+  color: #404040;
+}
+.Greeter {
+  background: #4eba70;
+  color: #404040;
+}
+.MechanicalAdvisor {
+  background: #2e95bf;
+  color: white;
+}
+.ShopUserSupport {
+  background: #955ba6;
+  color: white;
+}
+.TaskSupport {
+  background: #f25a5a;
+  color: white;
+}
+.Other {
+  background: #55638b;
+  color: white;
+}
+
 @media (max-width: 1024px) {
   .Calendar {
     grid-template-columns: 1fr;
