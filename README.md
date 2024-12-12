@@ -1,5 +1,7 @@
 # KICKSTAND CALENDAR
 
+https://kickstand-calendar.netlify.app/
+
 ### Problem:
 
 Kickstand is a community bike repair shop that is 100% run by volunteers. Each week, volunteers will sign up for shifts depending on their availability. Currently, the schedule is a spreadsheet hosted on Google Sheets.
