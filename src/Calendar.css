@@ -12,12 +12,6 @@
   flex-direction: column;
   height: 100%;
 }
-.dayHeaders {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  text-transform: uppercase;
-}
 
 .day {
   color: #595959;
@@ -29,7 +23,7 @@
 }
 
 .selectedDay {
-  background: rgb(255, 195, 122);
+  background: #e8fcff;
 }
 .extraneous {
   color: #a6a6a6;

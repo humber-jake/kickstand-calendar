@@ -114,13 +114,18 @@ function App() {
     setSelectedDay(day);
   }
 
-  const backMonth = () => {
+  function backMonth() {
     setMonth(month - 1);
-  };
+  }
 
-  const forwardMonth = () => {
+  function forwardMonth() {
     setMonth(month + 1);
-  };
+  }
+
+  function toToday() {
+    setMonth(dt.getMonth());
+    setSelectedDay(today);
+  }
 
   function openShiftModal() {
     setShiftModalOpen(!shiftModalOpen);
@@ -135,6 +140,7 @@ function App() {
         midMonth={midMonth}
         currentMonth={currentMonth}
         backMonth={backMonth}
+        toToday={toToday}
         forwardMonth={forwardMonth}
         openShiftModal={openShiftModal}
         selectDay={selectDay}
@@ -147,6 +153,7 @@ function App() {
         midMonth={midMonth}
         backMonth={backMonth}
         forwardMonth={forwardMonth}
+        toToday={toToday}
         currentMonth={currentMonth}
         selectDay={selectDay}
         selectedDay={selectedDay}

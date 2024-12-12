@@ -6,7 +6,7 @@
 }
 
 .sidebar {
-  padding: 4rem 0;
+  padding: 1rem 0;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -58,10 +58,27 @@
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   width: 80%;
   margin: 0 auto;
   padding: 1rem;
+  gap: 20px;
+}
+.miniMonth {
+  font-family: "Pacifico", cursive;
+}
+.logo {
+  max-width: 100%;
+  opacity: 80%;
+  padding: 1rem;
+}
+.dayHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  align-items: flex-end;
+  text-transform: uppercase;
+  height: 50px;
 }
 
 @media (max-width: 1920px) {

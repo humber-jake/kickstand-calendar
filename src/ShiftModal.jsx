@@ -13,6 +13,7 @@ const ShiftModal = (props) => {
     currentMonth,
     backMonth,
     forwardMonth,
+    toToday,
     selectDay,
     selectedDay,
   } = props;
@@ -55,7 +56,7 @@ const ShiftModal = (props) => {
           className="close"
           onClick={cancelAddShift}
         >
-          X
+          +
         </button>
         <h2>Add Shift</h2>
         <p className="miniMonth">
@@ -63,6 +64,7 @@ const ShiftModal = (props) => {
         </p>
         <div className="buttons">
           <button onClick={backMonth}>{`<--`}</button>
+          <button onClick={toToday}>Today</button>
           <button onClick={forwardMonth}>{`-->`}</button>
         </div>
         <MiniCalendar
@@ -113,7 +115,7 @@ const ShiftModal = (props) => {
           </select>
 
           <label htmlFor="comments">Additional Comments:</label>
-          <textarea name="comments" id="comments"></textarea>
+          <textarea name="comments" id="comments" rows="3"></textarea>
         </form>
         <div className="buttons">
           <button form="addShiftForm" type="submit" onClick={addShift}>
