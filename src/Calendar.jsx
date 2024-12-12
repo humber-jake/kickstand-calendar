@@ -74,15 +74,11 @@ const Calendar = (props) => {
           </div>
         </div>
         <div className="shifts">
-          {shifts[day.toISOString().substr(0, 10)] &&
-            shifts[day.toISOString().substr(0, 10)].map((shift, i) => (
+          {shifts[day.toISOString().substring(0, 10)] &&
+            shifts[day.toISOString().substring(0, 10)].map((shift, i) => (
               <Shift openEditModal={openEditModal} key={i} shift={shift} />
             ))}
         </div>
-
-        {/* <div className="weekday">{weekday}</div> */}
-        {/* <div className="month"> {month}</div> */}
-        {/* <div className="year"> {year}</div> */}
       </div>
     );
   });

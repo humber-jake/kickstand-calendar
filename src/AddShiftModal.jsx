@@ -24,12 +24,17 @@ const AddShiftModal = (props) => {
 
   let today = new Date();
 
+  today.setHours(0, 0, 0);
+
   async function addShift(e) {
     e.preventDefault();
     let formData = new FormData(e.target.form);
     let data = Object.fromEntries(formData);
 
-    console.log(data);
+    if (data.date < today.toISOString().substring(0, 10)) {
+      alert("Unfortunately, we cannot change the past.");
+      return;
+    }
 
     const { response, error } = await supabase
       .from("shifts")
@@ -93,14 +98,14 @@ const AddShiftModal = (props) => {
         ></MiniCalendar>
         <form id="addShiftForm" className="addShiftForm" onSubmit={addShift}>
           <label htmlFor="name">Your name:</label>
-          <input id="name" name="name" type="text" />
+          <input id="name" name="name" type="text" required />
 
           <label htmlFor="date">Date</label>
           <input
             id="date"
             name="date"
             type="date"
-            value={selectedDay.toISOString().substr(0, 10)}
+            value={selectedDay.toISOString().substring(0, 10)}
             readOnly
           />
 
