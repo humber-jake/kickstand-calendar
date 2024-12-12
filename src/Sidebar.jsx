@@ -47,8 +47,8 @@ const Sidebar = (props) => {
       />
       <div className="actions">
         <button onClick={openShiftModal}>Add Shift</button>
-        <button>Log Hours</button>
-        <button>Settings</button>
+        <button disabled>Log Hours</button>
+        <button disabled>Settings</button>
       </div>
     </div>
   );
